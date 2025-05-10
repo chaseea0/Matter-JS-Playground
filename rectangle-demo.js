@@ -18,8 +18,8 @@ let render = Render.create({
     options: {
         width: matterContainer.clientWidth,
         height: matterContainer.clientHeight,
-        background: "transparent",
-        wireframes: true,
+        background: "rgb(143, 167, 168)",
+        wireframes: false,
         showAngleIndicator: true
     }
 });
@@ -36,6 +36,19 @@ let ground = Bodies.rectangle(
 
 // add all of the bodies to the world
 Composite.add(engine.world, [boxA, boxB, ground]);
+
+let mouse = Matter.Mouse.create(render.canvas);
+let mouseConstraint = Matter.MouseConstraint.create(engine, {
+    mouse: mouse,
+    constraint: {
+        stiffness: 0.2,
+        render: {
+            visible: false
+        }
+    }
+});
+
+Composite.add(engine.world, mouseConstraint);
 
 // run the renderer
 Render.run(render);
