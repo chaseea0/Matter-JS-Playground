@@ -64,7 +64,7 @@ let mouse = Matter.Mouse.create(render.canvas);
 let mouseConstraint = Matter.MouseConstraint.create(engine, {
     mouse: mouse,
     constraint: {
-        stiffness: 0.2,
+        stiffness: 0.5,
         render: {
             visible: false
         }
@@ -93,6 +93,15 @@ function handleResize(matterContainer) {
         Matter.Vector.create(
             matterContainer.clientWidth / 2,
             matterContainer.clientHeight + shapeThickness / 2
+        )
+    )
+
+    // reposition the right wall
+    Matter.Body.setPosition(
+        rightWall,
+        Matter.Vector.create(
+            matterContainer.clientWidth + shapeThickness / 2,
+            matterContainer.clientHeight / 2
         )
     )
 }
