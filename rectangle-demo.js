@@ -94,7 +94,7 @@ function handleResize(matterContainer) {
             matterContainer.clientWidth / 2,
             matterContainer.clientHeight + shapeThickness / 2
         )
-    )
+    );
 
     // reposition the right wall
     Matter.Body.setPosition(
@@ -103,7 +103,7 @@ function handleResize(matterContainer) {
             matterContainer.clientWidth + shapeThickness / 2,
             matterContainer.clientHeight / 2
         )
-    )
+    );
 }
 
 window.addEventListener("resize", () => handleResize(matterContainer));
