@@ -30,7 +30,7 @@ let boxB = Bodies.rectangle(450, 50, 80, 80);
 let ground = Bodies.rectangle(
     matterContainer.clientWidth / 2,
     matterContainer.clientHeight + groundHeight / 2,
-    matterContainer.clientWidth,
+    matterContainer.clientWidth * 2,
     groundHeight,
     { isStatic: true });
 
@@ -45,3 +45,20 @@ let runner = Runner.create();
 
 // run the engine
 Runner.run(runner, engine);
+
+function handleResize(matterContainer) {
+    // upon resizing the window, resize the canvas
+    render.canvas.width = matterContainer.clientWidth;
+    render.canvas.height = matterContainer.clientHeight;
+
+    // reposition the ground
+    Matter.Body.setPosition(
+        ground,
+        Matter.Vector.create(
+            matterContainer.clientWidth / 2,
+            matterContainer.clientHeight + groundHeight / 2
+        )
+    )
+}
+
+window.addEventListener("resize", () => handleResize(matterContainer));
