@@ -24,9 +24,6 @@ let render = Render.create({
     }
 });
 
-// create scene objects
-let boxA = Bodies.rectangle(400, 200, 80, 80);
-let boxB = Bodies.rectangle(450, 50, 80, 80);
 let ground = Bodies.rectangle(
     matterContainer.clientWidth / 2,
     matterContainer.clientHeight + shapeThickness / 2,
@@ -57,8 +54,7 @@ let rightWall = Bodies.rectangle(
     }
 );
 
-// add all of the bodies to the world
-Composite.add(engine.world, [boxA, boxB, ground, leftWall, rightWall]);
+Composite.add(engine.world, [ground, leftWall, rightWall]);
 
 let mouse = Matter.Mouse.create(render.canvas);
 let mouseConstraint = Matter.MouseConstraint.create(engine, {
@@ -81,6 +77,19 @@ let runner = Runner.create();
 
 // run the engine
 Runner.run(runner, engine);
+
+window.addEventListener("resize", () => handleResize(matterContainer));
+
+// Different Demo functions below this line for use in index button click event
+
+function RectangleDemo() {
+    // create scene objects
+    let boxA = Bodies.rectangle(400, 200, 80, 80);
+    let boxB = Bodies.rectangle(450, 50, 80, 80);
+
+    // add all of the bodies to the world
+    Composite.add(engine.world, [boxA, boxB]);
+}
 
 function handleResize(matterContainer) {
     // upon resizing the window, resize the canvas
@@ -105,5 +114,3 @@ function handleResize(matterContainer) {
         )
     );
 }
-
-window.addEventListener("resize", () => handleResize(matterContainer));
