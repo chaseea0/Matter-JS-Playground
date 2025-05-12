@@ -1,6 +1,8 @@
 const matterContainer = document.querySelector("#matter-container");
 const shapeThickness = 60;
 
+let interval;
+
 // module aliases
 let Engine = Matter.Engine,
     Render = Matter.Render,
@@ -84,11 +86,18 @@ window.addEventListener("resize", () => handleResize(matterContainer));
 
 function rectangleDemo() {
     // create scene objects
-    let boxA = Bodies.rectangle(400, 200, 80, 80);
-    let boxB = Bodies.rectangle(450, 50, 80, 80);
+    clearInterval(interval);
+    let boxA = Bodies.rectangle(400, 200, shapeThickness, shapeThickness);
+    let boxB = Bodies.rectangle(450, 50, shapeThickness, shapeThickness);
 
     // add all of the bodies to the world
     Composite.add(engine.world, [boxA, boxB]);
+}
+
+function fallingBoxes() {
+    clearInterval(interval);
+    // At a set interval, create new boxes at a random location above the frame
+    interval = setInterval(spawnBox, 100);
 }
 
 function handleResize(matterContainer) {
@@ -113,4 +122,18 @@ function handleResize(matterContainer) {
             matterContainer.clientHeight / 2
         )
     );
+}
+
+function spawnBox() {
+    let randomX = Math.random() * ((matterContainer.clientWidth - (2 * shapeThickness)) - (0 + (2 * shapeThickness)))
+    let newBox = Bodies.rectangle(randomX, -100, shapeThickness, shapeThickness)
+    Composite.add(engine.world, newBox);
+}
+
+function resetAll() {
+    clearInterval(interval);
+    const allBodies = engine.world.bodies.slice();
+
+    Composite.clear(engine.world);
+    Composite.add(engine.world, [ground, leftWall, rightWall]);
 }
