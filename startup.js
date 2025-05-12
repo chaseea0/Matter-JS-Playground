@@ -82,7 +82,7 @@ window.addEventListener("resize", () => handleResize(matterContainer));
 
 // Different Demo functions below this line for use in index button click event
 
-function RectangleDemo() {
+function rectangleDemo() {
     // create scene objects
     let boxA = Bodies.rectangle(400, 200, 80, 80);
     let boxB = Bodies.rectangle(450, 50, 80, 80);
